@@ -9,7 +9,7 @@ const employeeSchema = z.object({
   designation: z.string().min(1),
   department: z.string().min(1),
   dateOfJoining: z.string().transform((str) => new Date(str)),
-  bloodGroup: z.string().optional(),
+  bloodGroup: z.string().optional().default(''),
   phone: z.string().min(1),
   email: z.string().email(),
   address: z.string().min(1),
@@ -49,7 +49,7 @@ export const getEmployees = async (req: Request, res: Response): Promise<void> =
 
 export const getEmployeeById = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { id } = req.params;
+    const id = String(req.params.id);
     const employee = await prisma.employee.findUnique({ where: { id } });
     if (!employee) {
       res.status(404).json({ error: 'Employee not found' });
@@ -63,7 +63,7 @@ export const getEmployeeById = async (req: Request, res: Response): Promise<void
 
 export const updateEmployee = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { id } = req.params;
+    const id = String(req.params.id);
     const data = employeeSchema.partial().parse(req.body);
     const employee = await prisma.employee.update({
       where: { id },
@@ -78,7 +78,7 @@ export const updateEmployee = async (req: Request, res: Response): Promise<void>
 
 export const deleteEmployee = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { id } = req.params;
+    const id = String(req.params.id);
     await prisma.employee.delete({ where: { id } });
     res.status(204).send();
   } catch (error: any) {

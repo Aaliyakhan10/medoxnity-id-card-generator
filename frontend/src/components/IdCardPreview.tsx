@@ -34,7 +34,6 @@ export const IdCardPreview: React.FC<Props> = ({ data, forwardedRef }) => {
 
   // Dynamically adjust font sizes based on length to prevent aggressive trimming
   const nameFontSize = name.length > 22 ? 'text-xs' : name.length > 15 ? 'text-sm' : 'text-base';
-  const emailFontSize = email.length > 25 ? 'text-[8.5px]' : 'text-[9.5px]';
   const designationFontSize = designation.length > 20 ? 'text-[9px]' : 'text-[10px]';
 
   return (
