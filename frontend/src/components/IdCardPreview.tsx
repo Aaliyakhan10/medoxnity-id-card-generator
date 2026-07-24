@@ -81,36 +81,22 @@ export const IdCardPreview: React.FC<Props> = ({ data, forwardedRef }) => {
         </div>
 
         {/* Content Body */}
-        <div className="flex-1 px-4 pt-3 flex gap-3 w-full min-w-0 z-10">
-          {/* Photo Column */}
-          <div className="w-[95px] shrink-0 flex flex-col items-center">
-            <div className="w-full h-[115px] rounded-xl overflow-hidden border-2 border-gray-300 shadow-sm bg-gray-100 flex items-center justify-center">
+        <div className="flex-1 px-6 pt-1 flex flex-col items-center w-full min-w-0 z-10">
+          {/* Photo Section */}
+          <div className="w-[85px] shrink-0 flex flex-col items-center">
+            <div className="w-full h-[100px] rounded-xl overflow-hidden border-2 border-gray-300 shadow-sm bg-gray-100 flex items-center justify-center">
               {photoUrl ? (
                 <img src={photoUrl} alt="Employee" className="w-full h-full object-cover" />
               ) : (
                 <User className="w-12 h-12 text-gray-300" />
               )}
             </div>
-            
-            {/* Signature Area */}
-            <div className="mt-8 flex flex-col items-center w-full">
-              <div className="h-7 flex items-center justify-center mb-0.5">
-                {/* mix-blend-multiply eliminates the white image background on the white card */}
-                <img 
-                  src="/placeholder-signature.png" 
-                  alt="Signature" 
-                  className="h-full object-contain mix-blend-multiply" 
-                />
-              </div>
-              <div className="w-full h-[1px] bg-gray-400"></div>
-              <span className="text-[8px] text-gray-500 mt-0.5 tracking-tight font-medium">Authorized Signatory</span>
-            </div>
           </div>
 
-          {/* Details Column */}
-          <div className="flex-1 flex flex-col min-w-0">
+          {/* Details Section */}
+          <div className="w-full flex flex-col min-w-0 mt-2">
             {/* Name and Designation */}
-            <div className="mb-2">
+            <div className="mb-2 flex flex-col items-center text-center">
               <h2 className={`${nameFontSize} font-extrabold text-[#0A2342] uppercase leading-tight tracking-wide break-words max-h-[36px] overflow-hidden`}>
                 {name || 'YOUR NAME'}
               </h2>
@@ -121,13 +107,13 @@ export const IdCardPreview: React.FC<Props> = ({ data, forwardedRef }) => {
             </div>
 
             {/* List of Details */}
-            <div className="space-y-1.5 w-full min-w-0">
+            <div className="space-y-1.5 w-full min-w-0 px-2">
               <div className="flex items-center gap-1.5 w-full min-w-0">
                 <div className="w-3.5 h-3.5 rounded-full bg-[#0A2342] flex items-center justify-center shrink-0">
                   <User className="w-2 h-2 text-white" />
                 </div>
                 <div className="flex text-[9px] flex-1 min-w-0 items-center">
-                  <span className="w-[60px] shrink-0 text-gray-500 font-medium">Employee ID</span>
+                  <span className="w-[65px] shrink-0 text-gray-500 font-medium">Employee ID</span>
                   <span className="shrink-0 mr-1 text-gray-400">:</span>
                   <span className="font-bold text-gray-800 truncate flex-1">{employeeId}</span>
                 </div>
@@ -138,7 +124,7 @@ export const IdCardPreview: React.FC<Props> = ({ data, forwardedRef }) => {
                   <Calendar className="w-2 h-2 text-white" />
                 </div>
                 <div className="flex text-[9px] flex-1 min-w-0 items-center">
-                  <span className="w-[60px] shrink-0 text-gray-500 font-medium">Date of Joining</span>
+                  <span className="w-[65px] shrink-0 text-gray-500 font-medium">Date of Joining</span>
                   <span className="shrink-0 mr-1 text-gray-400">:</span>
                   <span className="font-bold text-gray-800 truncate flex-1">
                     {dateOfJoining ? new Date(dateOfJoining).toLocaleDateString('en-GB') : '17-07-2025'}
@@ -152,7 +138,7 @@ export const IdCardPreview: React.FC<Props> = ({ data, forwardedRef }) => {
                     <Droplet className="w-2 h-2 text-white" />
                   </div>
                   <div className="flex text-[9px] flex-1 min-w-0 items-center">
-                    <span className="w-[60px] shrink-0 text-gray-500 font-medium">Blood Group</span>
+                    <span className="w-[65px] shrink-0 text-gray-500 font-medium">Blood Group</span>
                     <span className="shrink-0 mr-1 text-gray-400">:</span>
                     <span className="font-bold text-gray-800 truncate flex-1">{bloodGroup}</span>
                   </div>
@@ -164,7 +150,7 @@ export const IdCardPreview: React.FC<Props> = ({ data, forwardedRef }) => {
                   <Phone className="w-2 h-2 text-white" />
                 </div>
                 <div className="flex text-[9px] flex-1 min-w-0 items-center">
-                  <span className="w-[60px] shrink-0 text-gray-500 font-medium">Contact No.</span>
+                  <span className="w-[65px] shrink-0 text-gray-500 font-medium">Contact No.</span>
                   <span className="shrink-0 mr-1 text-gray-400">:</span>
                   <span className="font-bold text-gray-800 truncate flex-1">{phone}</span>
                 </div>
@@ -183,10 +169,23 @@ export const IdCardPreview: React.FC<Props> = ({ data, forwardedRef }) => {
           </div>
         </div>
 
+        {/* Signature Area */}
+        <div className="absolute bottom-[48px] left-6 z-20 flex flex-col items-center w-[70px]">
+          <div className="h-6 flex items-center justify-center mb-0.5">
+            <img 
+              src="/placeholder-signature.png" 
+              alt="Signature" 
+              className="h-full object-contain mix-blend-multiply" 
+            />
+          </div>
+          <div className="w-full h-[1px] bg-gray-400"></div>
+          <span className="text-[7px] text-gray-500 mt-0.5 tracking-tight font-medium">Authorized Signatory</span>
+        </div>
+
         {/* QR Code (Anchored bottom right, higher up to avoid overlapping curves) */}
-        <div className="absolute bottom-[52px] right-4 z-20">
-          <div className="w-[54px] h-[54px] border-2 border-green-600 p-0.5 bg-white flex items-center justify-center rounded-md shadow-sm">
-            <QRCodeSVG value={employeeId || 'MDX0001'} size={44} />
+        <div className="absolute bottom-[48px] right-6 z-20">
+          <div className="w-[50px] h-[50px] border-2 border-green-600 p-0.5 bg-white flex items-center justify-center rounded-md shadow-sm">
+            <QRCodeSVG value={employeeId || 'MDX0001'} size={40} />
           </div>
         </div>
 
