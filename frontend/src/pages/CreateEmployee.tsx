@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -6,7 +6,7 @@ import api from '../lib/api';
 import { IdCardPreview } from '../components/IdCardPreview';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useReactToPrint } from 'react-to-print';
-import html2canvas from 'html2canvas';
+import { toPng } from 'html-to-image';
 import jsPDF from 'jspdf';
 import { Loader2, Printer, Download, Save } from 'lucide-react';
 
@@ -45,7 +45,7 @@ export default function CreateEmployee() {
 
   const formValues = watch();
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (id) {
       const fetchEmployee = async () => {
         setIsLoading(true);
@@ -120,24 +120,39 @@ export default function CreateEmployee() {
   };
 
   const handlePrint = useReactToPrint({
-    content: () => cardRef.current,
+    contentRef: cardRef,
   });
 
   const handleDownloadPDF = async () => {
     if (!cardRef.current) return;
     try {
-      const canvas = await html2canvas(cardRef.current, { scale: 2 });
-      const imgData = canvas.toDataURL('image/png');
+      const width = cardRef.current.offsetWidth * 2;
+      const height = cardRef.current.offsetHeight * 2;
+      const imgData = await toPng(cardRef.current, { pixelRatio: 2 });
       const pdf = new jsPDF({
-        orientation: 'portrait',
+        orientation: width > height ? 'landscape' : 'portrait',
         unit: 'px',
-        format: [canvas.width, canvas.height]
+        format: [width, height]
       });
-      pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+      pdf.addImage(imgData, 'PNG', 0, 0, width, height);
       pdf.save(`${formValues.employeeId || 'employee'}-id-card.pdf`);
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
-      alert('Failed to generate PDF');
+      alert(`Failed to generate PDF: ${err.message || String(err)}`);
+    }
+  };
+
+  const handleDownloadImage = async () => {
+    if (!cardRef.current) return;
+    try {
+      const imgData = await toPng(cardRef.current, { pixelRatio: 2 });
+      const link = document.createElement('a');
+      link.href = imgData;
+      link.download = `${formValues.employeeId || 'employee'}-id-card.png`;
+      link.click();
+    } catch (err: any) {
+      console.error(err);
+      alert(`Failed to generate Image: ${err.message || String(err)}`);
     }
   };
 
@@ -241,11 +256,14 @@ export default function CreateEmployee() {
            <div className="w-full flex justify-between items-center mb-4">
              <h2 className="text-lg font-bold text-gray-700">Live Preview</h2>
              <div className="flex gap-2">
-               <button onClick={handlePrint} className="p-2 bg-white rounded-md shadow-sm text-gray-600 hover:text-blue-600" title="Print">
-                 <Printer className="w-5 h-5" />
+               <button type="button" onClick={handlePrint} className="flex items-center gap-2 p-2 px-3 bg-white rounded-md shadow-sm text-gray-600 hover:text-blue-600 text-sm font-medium" title="Print">
+                 <Printer className="w-4 h-4" /> Print
                </button>
-               <button onClick={handleDownloadPDF} className="p-2 bg-white rounded-md shadow-sm text-gray-600 hover:text-blue-600" title="Download PDF">
-                 <Download className="w-5 h-5" />
+               <button type="button" onClick={handleDownloadPDF} className="flex items-center gap-2 p-2 px-3 bg-white rounded-md shadow-sm text-gray-600 hover:text-green-600 text-sm font-medium" title="Download PDF">
+                 <Download className="w-4 h-4" /> PDF
+               </button>
+               <button type="button" onClick={handleDownloadImage} className="flex items-center gap-2 p-2 px-3 bg-white rounded-md shadow-sm text-gray-600 hover:text-purple-600 text-sm font-medium" title="Download Image">
+                 <Download className="w-4 h-4" /> PNG
                </button>
              </div>
            </div>

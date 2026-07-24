@@ -22,7 +22,8 @@ export const createEmployee = async (req: Request, res: Response): Promise<void>
     const employee = await prisma.employee.create({ data });
     res.status(201).json(employee);
   } catch (error: any) {
-    res.status(400).json({ error: error.message });
+    console.error("Error creating employee:", error);
+    res.status(400).json({ error: error.message || String(error) });
   }
 };
 
@@ -70,7 +71,8 @@ export const updateEmployee = async (req: Request, res: Response): Promise<void>
     });
     res.json(employee);
   } catch (error: any) {
-    res.status(400).json({ error: error.message });
+    console.error("Error updating employee:", error);
+    res.status(400).json({ error: error.message || String(error) });
   }
 };
 

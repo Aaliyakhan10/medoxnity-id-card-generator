@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../lib/api';
 import { Search, Edit, Trash2, Printer, Download, Eye } from 'lucide-react';
 import { IdCardPreview } from '../components/IdCardPreview';
 import { useReactToPrint } from 'react-to-print';
-import html2canvas from 'html2canvas';
+import { toPng } from 'html-to-image';
 import jsPDF from 'jspdf';
 import { format } from 'date-fns';
 
@@ -49,24 +49,39 @@ export default function EmployeeHistory() {
   };
 
   const handlePrint = useReactToPrint({
-    content: () => cardRef.current,
+    contentRef: cardRef,
   });
 
   const handleDownloadPDF = async () => {
     if (!cardRef.current) return;
     try {
-      const canvas = await html2canvas(cardRef.current, { scale: 2 });
-      const imgData = canvas.toDataURL('image/png');
+      const width = cardRef.current.offsetWidth * 2;
+      const height = cardRef.current.offsetHeight * 2;
+      const imgData = await toPng(cardRef.current, { pixelRatio: 2 });
       const pdf = new jsPDF({
-        orientation: 'portrait',
+        orientation: width > height ? 'landscape' : 'portrait',
         unit: 'px',
-        format: [canvas.width, canvas.height]
+        format: [width, height]
       });
-      pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+      pdf.addImage(imgData, 'PNG', 0, 0, width, height);
       pdf.save(`${selectedEmployee?.employeeId || 'employee'}-id-card.pdf`);
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
-      alert('Failed to generate PDF');
+      alert(`Failed to generate PDF: ${err.message || String(err)}`);
+    }
+  };
+
+  const handleDownloadImage = async () => {
+    if (!cardRef.current) return;
+    try {
+      const imgData = await toPng(cardRef.current, { pixelRatio: 2 });
+      const link = document.createElement('a');
+      link.href = imgData;
+      link.download = `${selectedEmployee?.employeeId || 'employee'}-id-card.png`;
+      link.click();
+    } catch (err: any) {
+      console.error(err);
+      alert(`Failed to generate Image: ${err.message || String(err)}`);
     }
   };
 
@@ -172,6 +187,9 @@ export default function EmployeeHistory() {
                 </button>
                 <button onClick={handleDownloadPDF} className="flex items-center gap-2 px-3 py-1.5 bg-green-600 text-white rounded-md hover:bg-green-700 text-sm">
                   <Download className="w-4 h-4" /> PDF
+                </button>
+                <button onClick={handleDownloadImage} className="flex items-center gap-2 px-3 py-1.5 bg-purple-600 text-white rounded-md hover:bg-purple-700 text-sm">
+                  <Download className="w-4 h-4" /> PNG
                 </button>
                 <button onClick={() => setSelectedEmployee(null)} className="ml-4 text-gray-500 hover:text-gray-700 font-bold text-xl px-2">
                   &times;

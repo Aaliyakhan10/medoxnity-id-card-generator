@@ -1,6 +1,6 @@
 import React from 'react';
 import { User, Calendar, Droplet, Phone, Mail, MapPin, Globe } from 'lucide-react';
-import { QRCodeSVG } from 'qrcode.react';
+import { QRCodeCanvas } from 'qrcode.react';
 
 interface EmployeeData {
   employeeId: string;
@@ -65,6 +65,7 @@ export const IdCardPreview: React.FC<Props> = ({ data, forwardedRef }) => {
               src="/placeholder-logo.png" 
               alt="Medoxnity Diagnostics" 
               className="h-full object-contain" 
+              crossOrigin="anonymous"
             />
           </div>
           
@@ -86,7 +87,7 @@ export const IdCardPreview: React.FC<Props> = ({ data, forwardedRef }) => {
           <div className="w-[85px] shrink-0 flex flex-col items-center">
             <div className="w-full h-[100px] rounded-xl overflow-hidden border-2 border-gray-300 shadow-sm bg-gray-100 flex items-center justify-center">
               {photoUrl ? (
-                <img src={photoUrl} alt="Employee" className="w-full h-full object-cover" />
+                <img src={photoUrl} alt="Employee" className="w-full h-full object-cover" crossOrigin="anonymous" />
               ) : (
                 <User className="w-12 h-12 text-gray-300" />
               )}
@@ -176,6 +177,7 @@ export const IdCardPreview: React.FC<Props> = ({ data, forwardedRef }) => {
               src="/placeholder-signature.png" 
               alt="Signature" 
               className="h-full object-contain mix-blend-multiply" 
+              crossOrigin="anonymous"
             />
           </div>
           <div className="w-full h-[1px] bg-gray-400"></div>
@@ -185,7 +187,7 @@ export const IdCardPreview: React.FC<Props> = ({ data, forwardedRef }) => {
         {/* QR Code (Anchored bottom right, higher up to avoid overlapping curves) */}
         <div className="absolute bottom-[48px] right-6 z-20">
           <div className="w-[50px] h-[50px] border-2 border-green-600 p-0.5 bg-white flex items-center justify-center rounded-md shadow-sm">
-            <QRCodeSVG value={employeeId || 'MDX0001'} size={40} />
+            <QRCodeCanvas value={employeeId || 'MDX0001'} size={40} />
           </div>
         </div>
 
@@ -228,6 +230,7 @@ export const IdCardPreview: React.FC<Props> = ({ data, forwardedRef }) => {
               src="/placeholder-logo.png" 
               alt="Medoxnity Diagnostics" 
               className="h-full object-contain" 
+              crossOrigin="anonymous"
             />
           </div>
         </div>
@@ -292,7 +295,7 @@ export const IdCardPreview: React.FC<Props> = ({ data, forwardedRef }) => {
            
            {/* Watermark Logo behind content */}
            <div className="absolute right-2 top-1/2 transform -translate-y-1/2 opacity-[0.03] pointer-events-none z-[-1] flex justify-center w-full">
-             <img src="/placeholder-logo.png" alt="" className="w-40 h-40 object-contain" />
+             <img src="/placeholder-logo.png" alt="" className="w-40 h-40 object-contain" crossOrigin="anonymous" />
            </div>
 
            <div className="mt-auto flex justify-center pb-4">
@@ -318,6 +321,7 @@ export const IdCardPreview: React.FC<Props> = ({ data, forwardedRef }) => {
                   src="/placeholder-signature.png" 
                   alt="Signature" 
                   className="h-full object-contain invert mix-blend-screen" 
+                  crossOrigin="anonymous"
                 />
               </div>
               <div className="w-20 h-[0.5px] bg-white/40 mb-0.5"></div>
