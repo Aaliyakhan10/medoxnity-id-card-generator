@@ -69,6 +69,20 @@ export default function CreateEmployee() {
         }
       };
       fetchEmployee();
+    } else {
+      reset({
+        employeeId: '',
+        name: '',
+        designation: '',
+        department: '',
+        dateOfJoining: '',
+        bloodGroup: '',
+        phone: '',
+        email: '',
+        address: '',
+      });
+      setPhotoUrl(null);
+      if (fileInputRef.current) fileInputRef.current.value = '';
     }
   }, [id, reset]);
 
