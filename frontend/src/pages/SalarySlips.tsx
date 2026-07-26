@@ -118,18 +118,9 @@ export default function SalarySlips() {
   };
 
   // Calculations
-  const calculatedHRA = Math.round(basicSalary * 0.4);
-  const calculatedDA = Math.round(basicSalary * 0.1);
-  const fixedMedical = 1250;
-  const calculatedSpecial = Math.round(basicSalary * 0.1);
-
-  const grossEarnings = basicSalary + calculatedHRA + calculatedDA + fixedMedical + calculatedSpecial;
-
-  const calculatedPF = Math.round(basicSalary * 0.12);
-  const fixedPT = 200;
+  const grossEarnings = basicSalary;
   const calculatedLOP = Math.round((basicSalary / 30) * lopDays);
-
-  const totalDeductions = calculatedPF + fixedPT + calculatedLOP;
+  const totalDeductions = calculatedLOP;
   const netSalary = grossEarnings - totalDeductions;
 
   return (
@@ -383,22 +374,6 @@ export default function SalarySlips() {
                       <span className="font-semibold text-gray-600">Basic Salary</span>
                       <span className="font-bold text-gray-800">₹{basicSalary.toLocaleString('en-IN')}</span>
                     </div>
-                    <div className="py-2.5 px-4 flex justify-between">
-                      <span className="font-semibold text-gray-600">House Rent Allowance (HRA)</span>
-                      <span className="font-bold text-gray-800">₹{calculatedHRA.toLocaleString('en-IN')}</span>
-                    </div>
-                    <div className="py-2.5 px-4 flex justify-between">
-                      <span className="font-semibold text-gray-600">Dearness Allowance (DA)</span>
-                      <span className="font-bold text-gray-800">₹{calculatedDA.toLocaleString('en-IN')}</span>
-                    </div>
-                    <div className="py-2.5 px-4 flex justify-between">
-                      <span className="font-semibold text-gray-600">Medical Allowance</span>
-                      <span className="font-bold text-gray-800">₹{fixedMedical.toLocaleString('en-IN')}</span>
-                    </div>
-                    <div className="py-2.5 px-4 flex justify-between">
-                      <span className="font-semibold text-gray-600">Special Allowance</span>
-                      <span className="font-bold text-gray-800">₹{calculatedSpecial.toLocaleString('en-IN')}</span>
-                    </div>
                   </div>
                 </div>
 
@@ -410,25 +385,8 @@ export default function SalarySlips() {
                   </div>
                   <div className="flex-1 text-xs divide-y divide-gray-100">
                     <div className="py-2.5 px-4 flex justify-between">
-                      <span className="font-semibold text-gray-600">Provident Fund (PF)</span>
-                      <span className="font-bold text-gray-800">₹{calculatedPF.toLocaleString('en-IN')}</span>
-                    </div>
-                    <div className="py-2.5 px-4 flex justify-between">
-                      <span className="font-semibold text-gray-600">Professional Tax (PT)</span>
-                      <span className="font-bold text-gray-800">₹{fixedPT.toLocaleString('en-IN')}</span>
-                    </div>
-                    <div className="py-2.5 px-4 flex justify-between">
                       <span className="font-semibold text-red-600">Loss of Pay (LOP) Deduction</span>
                       <span className="font-bold text-red-600">₹{calculatedLOP.toLocaleString('en-IN')}</span>
-                    </div>
-                    {/* Padding blocks to keep rows equal in size */}
-                    <div className="py-2.5 px-4 flex justify-between invisible">
-                      <span>Spacer</span>
-                      <span>₹0</span>
-                    </div>
-                    <div className="py-2.5 px-4 flex justify-between invisible">
-                      <span>Spacer</span>
-                      <span>₹0</span>
                     </div>
                   </div>
                 </div>
