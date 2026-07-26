@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import api from '../lib/api';
 import { Search, Edit, Trash2, Printer, Download, Eye } from 'lucide-react';
 import { IdCardPreview } from '../components/IdCardPreview';
+import { VisitingCardPreview } from '../components/VisitingCardPreview';
 import { useReactToPrint } from 'react-to-print';
 import { toPng } from 'html-to-image';
 import jsPDF from 'jspdf';
@@ -13,6 +14,7 @@ export default function EmployeeHistory() {
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
   const [selectedEmployee, setSelectedEmployee] = useState<any>(null);
+  const [previewType, setPreviewType] = useState<'id' | 'visiting'>('id');
   
   const cardRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
@@ -64,7 +66,7 @@ export default function EmployeeHistory() {
         format: [width, height]
       });
       pdf.addImage(imgData, 'PNG', 0, 0, width, height);
-      pdf.save(`${selectedEmployee?.employeeId || 'employee'}-id-card.pdf`);
+      pdf.save(`${selectedEmployee?.employeeId || 'employee'}-${previewType === 'id' ? 'id' : 'visiting'}-card.pdf`);
     } catch (err: any) {
       console.error(err);
       alert(`Failed to generate PDF: ${err.message || String(err)}`);
@@ -77,7 +79,7 @@ export default function EmployeeHistory() {
       const imgData = await toPng(cardRef.current, { pixelRatio: 2 });
       const link = document.createElement('a');
       link.href = imgData;
-      link.download = `${selectedEmployee?.employeeId || 'employee'}-id-card.png`;
+      link.download = `${selectedEmployee?.employeeId || 'employee'}-${previewType === 'id' ? 'id' : 'visiting'}-card.png`;
       link.click();
     } catch (err: any) {
       console.error(err);
@@ -156,7 +158,7 @@ export default function EmployeeHistory() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                       <div className="flex justify-end gap-2">
-                        <button onClick={() => setSelectedEmployee(emp)} className="text-blue-600 hover:text-blue-900 bg-blue-50 p-2 rounded-md" title="View Card">
+                        <button onClick={() => { setSelectedEmployee(emp); setPreviewType('id'); }} className="text-blue-600 hover:text-blue-900 bg-blue-50 p-2 rounded-md" title="View Card">
                           <Eye className="w-4 h-4" />
                         </button>
                         <button onClick={() => navigate(`/edit/${emp.id}`)} className="text-green-600 hover:text-green-900 bg-green-50 p-2 rounded-md" title="Edit">
@@ -179,26 +181,50 @@ export default function EmployeeHistory() {
       {selectedEmployee && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50">
           <div className="bg-white rounded-xl shadow-xl overflow-hidden max-w-3xl w-full flex flex-col max-h-[90vh]">
-            <div className="p-4 border-b border-gray-200 flex justify-between items-center bg-gray-50">
-              <h3 className="text-lg font-bold text-gray-900">ID Card - {selectedEmployee.name}</h3>
-              <div className="flex gap-2">
-                <button onClick={handlePrint} className="flex items-center gap-2 px-3 py-1.5 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm">
-                  <Printer className="w-4 h-4" /> Print
-                </button>
-                <button onClick={handleDownloadPDF} className="flex items-center gap-2 px-3 py-1.5 bg-green-600 text-white rounded-md hover:bg-green-700 text-sm">
-                  <Download className="w-4 h-4" /> PDF
-                </button>
-                <button onClick={handleDownloadImage} className="flex items-center gap-2 px-3 py-1.5 bg-purple-600 text-white rounded-md hover:bg-purple-700 text-sm">
-                  <Download className="w-4 h-4" /> PNG
-                </button>
-                <button onClick={() => setSelectedEmployee(null)} className="ml-4 text-gray-500 hover:text-gray-700 font-bold text-xl px-2">
-                  &times;
-                </button>
+            <div className="p-4 border-b border-gray-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 bg-gray-50">
+              <h3 className="text-lg font-bold text-gray-900 truncate">Cards - {selectedEmployee.name}</h3>
+              <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
+                {/* Toggles */}
+                <div className="flex bg-gray-200/80 p-0.5 rounded-lg border border-gray-300">
+                  <button 
+                    type="button" 
+                    onClick={() => setPreviewType('id')}
+                    className={`px-3 py-1 text-xs font-semibold rounded-md transition-all ${previewType === 'id' ? 'bg-white text-[#0A2342] shadow-sm' : 'text-gray-500 hover:text-gray-900'}`}
+                  >
+                    ID Card
+                  </button>
+                  <button 
+                    type="button" 
+                    onClick={() => setPreviewType('visiting')}
+                    className={`px-3 py-1 text-xs font-semibold rounded-md transition-all ${previewType === 'visiting' ? 'bg-white text-[#0A2342] shadow-sm' : 'text-gray-500 hover:text-gray-900'}`}
+                  >
+                    Visiting Card
+                  </button>
+                </div>
+
+                <div className="flex gap-2">
+                  <button onClick={handlePrint} className="flex items-center gap-2 px-3 py-1.5 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm font-medium">
+                    <Printer className="w-4 h-4" /> Print
+                  </button>
+                  <button onClick={handleDownloadPDF} className="flex items-center gap-2 px-3 py-1.5 bg-green-600 text-white rounded-md hover:bg-green-700 text-sm font-medium">
+                    <Download className="w-4 h-4" /> PDF
+                  </button>
+                  <button onClick={handleDownloadImage} className="flex items-center gap-2 px-3 py-1.5 bg-purple-600 text-white rounded-md hover:bg-purple-700 text-sm font-medium">
+                    <Download className="w-4 h-4" /> PNG
+                  </button>
+                  <button onClick={() => setSelectedEmployee(null)} className="ml-2 text-gray-500 hover:text-gray-700 font-bold text-xl px-2">
+                    &times;
+                  </button>
+                </div>
               </div>
             </div>
             <div className="p-6 overflow-y-auto flex justify-center bg-gray-200">
                <div className="scale-90 sm:scale-100 transform origin-top">
-                 <IdCardPreview data={selectedEmployee} forwardedRef={cardRef} />
+                 {previewType === 'id' ? (
+                   <IdCardPreview data={selectedEmployee} forwardedRef={cardRef} />
+                 ) : (
+                   <VisitingCardPreview data={selectedEmployee} forwardedRef={cardRef} />
+                 )}
                </div>
             </div>
           </div>

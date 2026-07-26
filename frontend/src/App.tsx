@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import CreateEmployee from './pages/CreateEmployee';
 import EmployeeHistory from './pages/EmployeeHistory';
+import SalarySlips from './pages/SalarySlips';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
             <Route path="/" element={<CreateEmployee />} />
             <Route path="/edit/:id" element={<CreateEmployee />} />
             <Route path="/history" element={<EmployeeHistory />} />
+            <Route path="/salary" element={<SalarySlips />} />
           </Routes>
         </main>
       </div>

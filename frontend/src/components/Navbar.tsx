@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Users, UserPlus } from 'lucide-react';
+import { Users, UserPlus, Banknote } from 'lucide-react';
 
 export default function Navbar() {
   const location = useLocation();
@@ -34,6 +34,15 @@ export default function Navbar() {
             >
               <Users className="w-4 h-4" />
               <span>History</span>
+            </Link>
+            <Link 
+              to="/salary" 
+              className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                location.pathname === '/salary' ? 'bg-blue-50 text-blue-700' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+              }`}
+            >
+              <Banknote className="w-4 h-4" />
+              <span>Salary Slip</span>
             </Link>
           </div>
         </div>

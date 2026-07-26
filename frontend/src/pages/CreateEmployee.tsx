@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import api from '../lib/api';
 import { IdCardPreview } from '../components/IdCardPreview';
+import { VisitingCardPreview } from '../components/VisitingCardPreview';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useReactToPrint } from 'react-to-print';
 import { toPng } from 'html-to-image';
@@ -30,6 +31,7 @@ export default function CreateEmployee() {
   const [photoUrl, setPhotoUrl] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [previewType, setPreviewType] = useState<'id' | 'visiting'>('id');
   const cardRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -149,7 +151,7 @@ export default function CreateEmployee() {
         format: [width, height]
       });
       pdf.addImage(imgData, 'PNG', 0, 0, width, height);
-      pdf.save(`${formValues.employeeId || 'employee'}-id-card.pdf`);
+      pdf.save(`${formValues.employeeId || 'employee'}-${previewType === 'id' ? 'id' : 'visiting'}-card.pdf`);
     } catch (err: any) {
       console.error(err);
       alert(`Failed to generate PDF: ${err.message || String(err)}`);
@@ -162,7 +164,7 @@ export default function CreateEmployee() {
       const imgData = await toPng(cardRef.current, { pixelRatio: 2 });
       const link = document.createElement('a');
       link.href = imgData;
-      link.download = `${formValues.employeeId || 'employee'}-id-card.png`;
+      link.download = `${formValues.employeeId || 'employee'}-${previewType === 'id' ? 'id' : 'visiting'}-card.png`;
       link.click();
     } catch (err: any) {
       console.error(err);
@@ -267,8 +269,29 @@ export default function CreateEmployee() {
 
         {/* Preview Section */}
         <div className="flex-1 bg-gray-100 p-6 rounded-xl flex flex-col items-center border border-gray-200">
-           <div className="w-full flex justify-between items-center mb-4">
-             <h2 className="text-lg font-bold text-gray-700">Live Preview</h2>
+           <div className="w-full flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">
+             <div className="flex items-center gap-3">
+               <h2 className="text-lg font-bold text-gray-700">Live Preview</h2>
+               
+               {/* Toggles */}
+               <div className="flex bg-gray-200/80 p-0.5 rounded-lg border border-gray-300">
+                 <button 
+                   type="button" 
+                   onClick={() => setPreviewType('id')}
+                   className={`px-3 py-1 text-xs font-semibold rounded-md transition-all ${previewType === 'id' ? 'bg-white text-[#0A2342] shadow-sm' : 'text-gray-500 hover:text-gray-900'}`}
+                 >
+                   ID Card
+                 </button>
+                 <button 
+                   type="button" 
+                   onClick={() => setPreviewType('visiting')}
+                   className={`px-3 py-1 text-xs font-semibold rounded-md transition-all ${previewType === 'visiting' ? 'bg-white text-[#0A2342] shadow-sm' : 'text-gray-500 hover:text-gray-900'}`}
+                 >
+                   Visiting Card
+                 </button>
+               </div>
+             </div>
+             
              <div className="flex gap-2">
                <button type="button" onClick={handlePrint} className="flex items-center gap-2 p-2 px-3 bg-white rounded-md shadow-sm text-gray-600 hover:text-blue-600 text-sm font-medium" title="Print">
                  <Printer className="w-4 h-4" /> Print
@@ -283,7 +306,11 @@ export default function CreateEmployee() {
            </div>
            
            <div className="w-full overflow-auto flex justify-center pb-8">
-             <IdCardPreview data={{ ...formValues, photoUrl }} forwardedRef={cardRef} />
+             {previewType === 'id' ? (
+               <IdCardPreview data={{ ...formValues, photoUrl }} forwardedRef={cardRef} />
+             ) : (
+               <VisitingCardPreview data={{ ...formValues, photoUrl }} forwardedRef={cardRef} />
+             )}
            </div>
         </div>
 
