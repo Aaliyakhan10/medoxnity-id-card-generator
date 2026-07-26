@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import api from '../lib/api';
-import { Search, Calculator, Printer, Download, ArrowLeft, CreditCard, Calendar, Landmark } from 'lucide-react';
+import { Search, Calculator, Printer, Download, ArrowLeft } from 'lucide-react';
 import { useReactToPrint } from 'react-to-print';
 import { toPng } from 'html-to-image';
 import jsPDF from 'jspdf';

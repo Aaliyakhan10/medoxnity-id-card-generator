@@ -1,5 +1,5 @@
 import React from 'react';
-import { Phone, Mail, MapPin, Globe, User } from 'lucide-react';
+import { Phone, Mail, MapPin, Globe } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 
 interface EmployeeData {
