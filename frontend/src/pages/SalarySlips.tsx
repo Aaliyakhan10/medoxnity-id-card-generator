@@ -14,7 +14,7 @@ function numberToWords(num: number): string {
   ];
   const b = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
   const g = ['', 'Thousand', 'Million', 'Billion'];
-  
+
   const makeGroup = (n: number) => {
     let s = '';
     const h = Math.floor(n / 100);
@@ -135,8 +135,8 @@ export default function SalarySlips() {
             </div>
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-              <input 
-                type="text" 
+              <input
+                type="text"
                 placeholder="Search by name or ID..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
@@ -165,8 +165,8 @@ export default function SalarySlips() {
                   <h3 className="font-bold text-gray-900 truncate max-w-full">{emp.name}</h3>
                   <p className="text-xs text-gray-500 font-medium truncate max-w-full">{emp.designation}</p>
                   <p className="text-[10px] text-blue-600 font-semibold mt-1 bg-blue-50 px-2 py-0.5 rounded-full">{emp.employeeId}</p>
-                  
-                  <button 
+
+                  <button
                     onClick={() => setSelectedEmployee(emp)}
                     className="mt-4 w-full py-2 px-3 bg-[#0A2342] text-white rounded-md text-xs font-bold hover:bg-[#16365f] transition-all flex items-center justify-center gap-1.5 shadow-sm"
                   >
@@ -183,20 +183,20 @@ export default function SalarySlips() {
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Controls Panel */}
           <div className="w-full lg:w-[350px] shrink-0 bg-white p-6 rounded-xl shadow-sm border border-gray-200 h-fit">
-            <button 
+            <button
               onClick={() => setSelectedEmployee(null)}
               className="flex items-center gap-1.5 text-xs font-bold text-[#0A2342] hover:text-green-600 mb-6 transition-colors"
             >
               <ArrowLeft className="w-4 h-4" /> Back to Employees
             </button>
-            
+
             <h2 className="text-lg font-extrabold text-gray-900 mb-4 pb-2 border-b border-gray-100">Payslip Variables</h2>
-            
+
             <div className="space-y-4">
               <div>
                 <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider">Basic Salary (Monthly)</label>
-                <input 
-                  type="number" 
+                <input
+                  type="number"
                   value={basicSalary}
                   onChange={(e) => setBasicSalary(Number(e.target.value))}
                   className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 p-2 text-sm font-semibold"
@@ -205,9 +205,9 @@ export default function SalarySlips() {
 
               <div>
                 <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider">Loss of Pay (LOP) Days</label>
-                <input 
-                  type="number" 
-                  min="0" 
+                <input
+                  type="number"
+                  min="0"
                   max="31"
                   value={lopDays}
                   onChange={(e) => setLopDays(Number(e.target.value))}
@@ -218,7 +218,7 @@ export default function SalarySlips() {
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider">Month</label>
-                  <select 
+                  <select
                     value={month}
                     onChange={(e) => setMonth(e.target.value)}
                     className="mt-1 block w-full rounded-md border border-gray-300 bg-white p-2 text-sm font-semibold"
@@ -230,7 +230,7 @@ export default function SalarySlips() {
                 </div>
                 <div>
                   <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider">Year</label>
-                  <select 
+                  <select
                     value={year}
                     onChange={(e) => setYear(e.target.value)}
                     className="mt-1 block w-full rounded-md border border-gray-300 bg-white p-2 text-sm font-semibold"
@@ -244,19 +244,19 @@ export default function SalarySlips() {
             </div>
 
             <div className="mt-8 pt-4 border-t border-gray-100 flex flex-col gap-2">
-              <button 
+              <button
                 onClick={handlePrint}
                 className="w-full flex items-center justify-center gap-2 py-2 px-4 bg-[#0A2342] text-white font-bold rounded-lg hover:bg-slate-800 text-sm shadow-sm transition-all"
               >
                 <Printer className="w-4 h-4" /> Print Payslip
               </button>
-              <button 
+              <button
                 onClick={handleDownloadPDF}
                 className="w-full flex items-center justify-center gap-2 py-2 px-4 bg-green-600 text-white font-bold rounded-lg hover:bg-green-700 text-sm shadow-sm transition-all"
               >
                 <Download className="w-4 h-4" /> Download PDF
               </button>
-              <button 
+              <button
                 onClick={handleDownloadImage}
                 className="w-full flex items-center justify-center gap-2 py-2 px-4 bg-purple-600 text-white font-bold rounded-lg hover:bg-purple-700 text-sm shadow-sm transition-all"
               >
@@ -267,10 +267,10 @@ export default function SalarySlips() {
 
           {/* Payslip View Panel */}
           <div className="flex-1 bg-gray-100 p-6 rounded-xl border border-gray-200 overflow-x-auto flex justify-center items-start">
-            
+
             {/* PAYSLIP SHEET CANVAS */}
-            <div 
-              ref={payslipRef} 
+            <div
+              ref={payslipRef}
               className="w-[790px] bg-white p-8 border border-gray-300 rounded-md font-sans shadow-md text-gray-800 flex flex-col shrink-0"
               style={{ minHeight: '1000px' }}
             >
@@ -290,13 +290,13 @@ export default function SalarySlips() {
                   </div>
                   <div className="flex flex-col items-start leading-none">
                     <span className="text-2xl font-black text-[#0A2342] tracking-tight">Medoxnity</span>
-                    <span className="text-[9px] tracking-[0.2em] text-green-600 font-extrabold mt-1">DIAGNOSTICS</span>
+                    <span className="text-[9px] tracking-[0.2em] text-green-600 font-extrabold mt-1">DIAGNOSTIC</span>
                   </div>
                 </div>
                 <div className="text-right text-[11px] leading-snug font-medium text-gray-500">
-                  <p className="font-bold text-[#0A2342] text-sm">Medoxnity Diagnostics Pvt. Ltd.</p>
+                  <p className="font-bold text-[#0A2342] text-sm">Medoxnity Diagnostic Pvt. Ltd.</p>
                   <p>C-111A, Punit Industrial Estate, Turbhe, Navi Mumbai - 400703</p>
-                  <p>Website: www.medoxnity.com | Email: corporate@medoxnity.com</p>
+                  <p>Website: www.medoxnity.com | Email: info@medoxnity.com</p>
                 </div>
               </div>
 
@@ -431,10 +431,10 @@ export default function SalarySlips() {
                 </div>
                 <div className="flex flex-col items-center">
                   <div className="h-10 flex items-center justify-center">
-                    <img 
-                      src="/placeholder-signature.png" 
-                      alt="Signature" 
-                      className="h-full object-contain mix-blend-multiply" 
+                    <img
+                      src="/placeholder-signature.jpeg"
+                      alt="Signature"
+                      className="h-full object-contain mix-blend-multiply"
                     />
                   </div>
                   <div className="w-28 h-[0.5px] bg-gray-400"></div>

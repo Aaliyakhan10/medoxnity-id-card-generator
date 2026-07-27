@@ -26,7 +26,7 @@ export const VisitingCardPreview: React.FC<Props> = ({ data, forwardedRef }) => 
     name = 'YOUR NAME',
     designation = 'YOUR DESIGNATION',
     phone = '79771 21917',
-    email = 'example@medoxnity.com',
+    email = 'info@medoxnity.com',
   } = data;
 
   // Dynamic font sizing to prevent overflow on long names
@@ -35,10 +35,10 @@ export const VisitingCardPreview: React.FC<Props> = ({ data, forwardedRef }) => 
 
   return (
     <div ref={forwardedRef} className="flex flex-col md:flex-row gap-8 items-center justify-center p-4 bg-gray-50">
-      
+
       {/* FRONT SIDE (Brand identity, clean and corporate) */}
       <div className="w-[450px] h-[260px] bg-white rounded-xl shadow-lg overflow-hidden relative border border-gray-200 flex flex-col items-center justify-center font-sans select-none shrink-0">
-        
+
         {/* Dynamic Curved Wave Backgrounds (Brand colors) */}
         <div className="absolute top-0 left-0 w-full h-full pointer-events-none z-0">
           {/* Top Green Accent Wave */}
@@ -62,8 +62,8 @@ export const VisitingCardPreview: React.FC<Props> = ({ data, forwardedRef }) => 
         <div className="relative z-10 flex flex-col items-center px-6">
           <div className="h-[60px] flex items-center justify-center mb-2">
             <img 
-              src="/placeholder-logo.png" 
-              alt="Medoxnity Diagnostics" 
+              src="/placeholder-logo.jpeg" 
+              alt="Medoxnity Diagnostic" 
               className="h-full object-contain" 
             />
           </div>
@@ -88,7 +88,7 @@ export const VisitingCardPreview: React.FC<Props> = ({ data, forwardedRef }) => 
 
       {/* BACK SIDE (Employee details and dynamic QR code) */}
       <div className="w-[450px] h-[260px] bg-white rounded-xl shadow-lg overflow-hidden relative border border-gray-200 flex font-sans select-none shrink-0">
-        
+
         {/* Curved Side Accents */}
         <div className="absolute top-0 right-0 h-full w-[80px] pointer-events-none z-0">
           {/* Top Right Green curve */}
@@ -106,8 +106,8 @@ export const VisitingCardPreview: React.FC<Props> = ({ data, forwardedRef }) => 
           {/* Top Logo row */}
           <div className="h-[36px] flex items-center justify-start shrink-0">
             <img 
-              src="/placeholder-logo.png" 
-              alt="Medoxnity Diagnostics" 
+              src="/placeholder-logo.jpeg" 
+              alt="Medoxnity Diagnostic" 
               className="h-full object-contain" 
             />
           </div>
@@ -161,10 +161,10 @@ export const VisitingCardPreview: React.FC<Props> = ({ data, forwardedRef }) => 
             <span className="text-[8px] text-gray-400 font-medium">Employee ID: {employeeId}</span>
             <div className="flex flex-col items-center">
               <div className="h-6 flex items-center justify-center">
-                <img 
-                  src="/placeholder-signature.png" 
-                  alt="Signature" 
-                  className="h-full object-contain mix-blend-multiply" 
+                <img
+                  src="/placeholder-signature.jpeg"
+                  alt="Signature"
+                  className="h-full object-contain mix-blend-multiply"
                 />
               </div>
               <div className="w-16 h-[0.5px] bg-gray-300"></div>
