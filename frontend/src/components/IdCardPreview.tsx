@@ -306,14 +306,14 @@ export const IdCardPreview: React.FC<Props> = ({ data, forwardedRef }) => {
         </div>
 
         {/* Bottom straight footer */}
-        <div className="w-full h-[48px] bg-[#0A2342] flex items-center justify-between px-5 shrink-0 relative z-20 border-t border-green-600">
+        <div className="w-full h-[52px] bg-[#0A2342] flex items-center justify-between px-5 pb-1 shrink-0 relative z-20 border-t border-green-600">
           <div className="text-[9px] leading-tight">
             <div className="text-white">India's Health.</div>
             <div className="text-white">Our Mission.</div>
             <div className="text-green-500 font-bold">Your Success.</div>
           </div>
 
-          <div className="flex flex-col items-center mt-1">
+          <div className="flex flex-col items-center justify-center">
             <div className="h-5 flex items-center justify-center">
               {/* CSS filter invert + screen blend mode lets us turn a black-on-white signature into transparent white signature on dark blue background! */}
               <img
@@ -324,7 +324,7 @@ export const IdCardPreview: React.FC<Props> = ({ data, forwardedRef }) => {
               />
             </div>
             <div className="w-20 h-[0.5px] bg-white/40 mb-0.5"></div>
-            <span className="text-[7.5px] text-white/70">Authorized Signatory</span>
+            <span className="text-[7.5px] text-white/70 font-semibold">Authorized Signatory</span>
           </div>
         </div>
 
