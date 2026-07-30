@@ -62,7 +62,7 @@ export const VisitingCardPreview: React.FC<Props> = ({ data, forwardedRef }) => 
         <div className="relative z-10 flex flex-col items-center px-6">
           <div className="h-[60px] flex items-center justify-center mb-2">
             <img 
-              src="/placeholder-logo.jpeg" 
+              src="/placeholder-logo.png" 
               alt="Medoxnity Diagnostic" 
               className="h-full object-contain" 
             />
@@ -102,11 +102,11 @@ export const VisitingCardPreview: React.FC<Props> = ({ data, forwardedRef }) => 
         </div>
 
         {/* Content Body */}
-        <div className="flex-1 p-5 flex flex-col justify-between z-10 min-w-0">
+        <div className="flex-1 px-7 py-6 flex flex-col justify-between z-10 min-w-0">
           {/* Top Logo row */}
           <div className="h-[36px] flex items-center justify-start shrink-0">
             <img 
-              src="/placeholder-logo.jpeg" 
+              src="/placeholder-logo.png" 
               alt="Medoxnity Diagnostic" 
               className="h-full object-contain" 
             />
@@ -125,22 +125,22 @@ export const VisitingCardPreview: React.FC<Props> = ({ data, forwardedRef }) => 
               <div className="w-12 h-[2px] bg-green-600 my-2"></div>
 
               {/* Contact Icons Column */}
-              <div className="space-y-1.5">
+              <div className="space-y-2">
                 <div className="flex items-center gap-2 text-[10px]">
                   <Phone className="w-3.5 h-3.5 text-green-600 shrink-0" />
-                  <span className="font-semibold text-gray-700">{phone}</span>
+                  <span className="font-bold text-gray-900">{phone}</span>
                 </div>
                 <div className="flex items-center gap-2 text-[10px] min-w-0">
                   <Mail className="w-3.5 h-3.5 text-green-600 shrink-0" />
-                  <span className={`font-semibold text-gray-700 truncate ${emailFontSize}`}>{email}</span>
+                  <span className={`font-bold text-gray-900 truncate ${emailFontSize}`}>{email}</span>
                 </div>
                 <div className="flex items-center gap-2 text-[10px]">
                   <Globe className="w-3.5 h-3.5 text-green-600 shrink-0" />
-                  <span className="font-semibold text-gray-700">www.medoxnity.com</span>
+                  <span className="font-bold text-gray-900">www.medoxnity.com</span>
                 </div>
                 <div className="flex items-start gap-2 text-[9px] leading-tight min-w-0">
                   <MapPin className="w-3.5 h-3.5 text-green-600 shrink-0 mt-0.5" />
-                  <span className="font-medium text-gray-500 break-words">
+                  <span className="font-semibold text-gray-700 break-words">
                     C-111A, Punit Industrial Estate, Turbhe, Navi Mumbai - 400703
                   </span>
                 </div>
@@ -158,7 +158,7 @@ export const VisitingCardPreview: React.FC<Props> = ({ data, forwardedRef }) => 
 
           {/* Bottom Authorized signature line */}
           <div className="flex justify-between items-end border-t border-gray-100 pt-2 shrink-0">
-            <span className="text-[8px] text-gray-400 font-medium">Employee ID: {employeeId}</span>
+            <span className="text-[8px] text-gray-600 font-semibold">Employee ID: {employeeId}</span>
             <div className="flex flex-col items-center">
               <div className="h-6 flex items-center justify-center">
                 <img
@@ -167,8 +167,8 @@ export const VisitingCardPreview: React.FC<Props> = ({ data, forwardedRef }) => 
                   className="h-full object-contain mix-blend-multiply"
                 />
               </div>
-              <div className="w-16 h-[0.5px] bg-gray-300"></div>
-              <span className="text-[7px] text-gray-400 mt-0.5 tracking-tight">Authorized Signatory</span>
+              <div className="w-16 h-[0.5px] bg-gray-400"></div>
+              <span className="text-[7px] text-gray-600 mt-0.5 tracking-tight font-semibold">Authorized Signatory</span>
             </div>
           </div>
 

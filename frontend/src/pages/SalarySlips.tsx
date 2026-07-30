@@ -54,6 +54,9 @@ export default function SalarySlips() {
   const [lopDays, setLopDays] = useState<number>(0);
   const [month, setMonth] = useState<string>('July');
   const [year, setYear] = useState<string>('2026');
+  const [paymentMode, setPaymentMode] = useState<string>('Bank Transfer');
+  const [bankName, setBankName] = useState<string>('HDFC Bank Ltd');
+  const [accountNo, setAccountNo] = useState<string>('XXXXXXXXXX5412');
 
   // Ref for print/pdf capture
   const payslipRef = useRef<HTMLDivElement>(null);
@@ -86,9 +89,9 @@ export default function SalarySlips() {
   const handleDownloadPDF = async () => {
     if (!payslipRef.current) return;
     try {
-      const width = payslipRef.current.offsetWidth * 2;
-      const height = payslipRef.current.offsetHeight * 2;
-      const imgData = await toPng(payslipRef.current, { pixelRatio: 2 });
+      const width = payslipRef.current.offsetWidth;
+      const height = payslipRef.current.offsetHeight;
+      const imgData = await toPng(payslipRef.current, { pixelRatio: 4 });
       const pdf = new jsPDF({
         orientation: width > height ? 'landscape' : 'portrait',
         unit: 'px',
@@ -106,7 +109,7 @@ export default function SalarySlips() {
   const handleDownloadImage = async () => {
     if (!payslipRef.current) return;
     try {
-      const imgData = await toPng(payslipRef.current, { pixelRatio: 2 });
+      const imgData = await toPng(payslipRef.current, { pixelRatio: 4 });
       const link = document.createElement('a');
       link.href = imgData;
       link.download = `${selectedEmployee?.employeeId || 'employee'}-payslip-${month}-${year}.png`;
@@ -214,7 +217,40 @@ export default function SalarySlips() {
                   className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 p-2 text-sm font-semibold"
                 />
               </div>
+              <div>
+                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider">Payment Mode</label>
+                <select 
+                  value={paymentMode}
+                  onChange={(e) => setPaymentMode(e.target.value)}
+                  className="mt-1 block w-full rounded-md border border-gray-300 bg-white p-2 text-sm font-semibold focus:ring-blue-500 focus:border-blue-500"
+                >
+                  <option value="Bank Transfer">Bank Transfer</option>
+                  <option value="Cash">Cash</option>
+                </select>
+              </div>
 
+              {paymentMode === 'Bank Transfer' && (
+                <>
+                  <div>
+                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider">Bank Name</label>
+                    <input 
+                      type="text" 
+                      value={bankName}
+                      onChange={(e) => setBankName(e.target.value)}
+                      className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 p-2 text-sm font-semibold"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider">Bank Account No.</label>
+                    <input 
+                      type="text" 
+                      value={accountNo}
+                      onChange={(e) => setAccountNo(e.target.value)}
+                      className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 p-2 text-sm font-semibold"
+                    />
+                  </div>
+                </>
+              )}
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider">Month</label>
@@ -314,16 +350,16 @@ export default function SalarySlips() {
                   <span className="font-bold text-gray-900">: {selectedEmployee.name}</span>
                 </div>
                 <div className="flex">
-                  <span className="w-32 text-gray-500 font-semibold">Bank Name</span>
-                  <span className="font-bold text-gray-900">: HDFC Bank Ltd</span>
+                  <span className="w-32 text-gray-500 font-semibold">{paymentMode === 'Cash' ? 'Payment Mode' : 'Bank Name'}</span>
+                  <span className="font-bold text-gray-900">: {paymentMode === 'Cash' ? 'Cash' : bankName}</span>
                 </div>
                 <div className="flex">
                   <span className="w-32 text-gray-500 font-semibold">Employee ID</span>
                   <span className="font-bold text-gray-900">: {selectedEmployee.employeeId}</span>
                 </div>
                 <div className="flex">
-                  <span className="w-32 text-gray-500 font-semibold">Bank Account No.</span>
-                  <span className="font-bold text-gray-900">: XXXXXXXXXX5412</span>
+                  <span className="w-32 text-gray-500 font-semibold">{paymentMode === 'Cash' ? 'Payment Ref' : 'Bank Account No.'}</span>
+                  <span className="font-bold text-gray-900">: {paymentMode === 'Cash' ? 'Cash Payout' : accountNo}</span>
                 </div>
                 <div className="flex">
                   <span className="w-32 text-gray-500 font-semibold">Designation</span>
@@ -416,9 +452,9 @@ export default function SalarySlips() {
                 </div>
               </div>
 
-              {/* Bank Transfer statement */}
+              {/* Bank Transfer / Cash Payout statement */}
               <p className="text-[10px] text-gray-500 font-medium text-center italic mb-10">
-                * This is a computer-generated salary slip and does not require a physical signature. The net salary has been credited to the bank details listed above.
+                * This is a computer-generated salary slip and does not require a physical signature. {paymentMode === 'Cash' ? 'The net salary has been disbursed in Cash.' : 'The net salary has been credited to the bank details listed above.'}
               </p>
 
               {/* Signatures */}

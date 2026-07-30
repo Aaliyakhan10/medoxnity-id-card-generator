@@ -142,9 +142,9 @@ export default function CreateEmployee() {
   const handleDownloadPDF = async () => {
     if (!cardRef.current) return;
     try {
-      const width = cardRef.current.offsetWidth * 2;
-      const height = cardRef.current.offsetHeight * 2;
-      const imgData = await toPng(cardRef.current, { pixelRatio: 2 });
+      const width = cardRef.current.offsetWidth;
+      const height = cardRef.current.offsetHeight;
+      const imgData = await toPng(cardRef.current, { pixelRatio: 4 });
       const pdf = new jsPDF({
         orientation: width > height ? 'landscape' : 'portrait',
         unit: 'px',
@@ -161,7 +161,7 @@ export default function CreateEmployee() {
   const handleDownloadImage = async () => {
     if (!cardRef.current) return;
     try {
-      const imgData = await toPng(cardRef.current, { pixelRatio: 2 });
+      const imgData = await toPng(cardRef.current, { pixelRatio: 4 });
       const link = document.createElement('a');
       link.href = imgData;
       link.download = `${formValues.employeeId || 'employee'}-${previewType === 'id' ? 'id' : 'visiting'}-card.png`;

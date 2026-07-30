@@ -61,7 +61,7 @@ export const IdCardPreview: React.FC<Props> = ({ data, forwardedRef }) => {
         <div className="relative z-20 pt-[56px] px-4 flex flex-col items-center shrink-0">
           <div className="h-[44px] flex items-center justify-center">
             <img
-              src="/placeholder-logo.jpeg"
+              src="/placeholder-logo.png"
               alt="Medoxnity Diagnostic"
               className="h-full object-contain"
               crossOrigin="anonymous"
@@ -70,7 +70,7 @@ export const IdCardPreview: React.FC<Props> = ({ data, forwardedRef }) => {
 
           <div className="text-center mt-1">
             <p className="text-[9px] text-[#0A2342] font-semibold tracking-wide leading-tight">Make Healthy Choices Today</p>
-            <p className="text-[8.5px] text-gray-500 leading-tight">For A Happier Tomorrow</p>
+            <p className="text-[8.5px] text-gray-600 leading-tight">For A Happier Tomorrow</p>
             {/* Mini leaf ornament */}
             <div className="flex justify-center gap-0.5 mt-0.5">
               <span className="w-1.5 h-1 bg-green-600 rounded-full"></span>
@@ -113,8 +113,8 @@ export const IdCardPreview: React.FC<Props> = ({ data, forwardedRef }) => {
                   <User className="w-2 h-2 text-white" />
                 </div>
                 <div className="flex text-[9px] flex-1 min-w-0 items-center">
-                  <span className="w-[65px] shrink-0 text-gray-500 font-medium">Employee ID</span>
-                  <span className="shrink-0 mr-1 text-gray-400">:</span>
+                  <span className="w-[65px] shrink-0 text-gray-700 font-medium">Employee ID</span>
+                  <span className="shrink-0 mr-1 text-gray-500">:</span>
                   <span className="font-bold text-gray-800 truncate flex-1">{employeeId}</span>
                 </div>
               </div>
@@ -124,8 +124,8 @@ export const IdCardPreview: React.FC<Props> = ({ data, forwardedRef }) => {
                   <Calendar className="w-2 h-2 text-white" />
                 </div>
                 <div className="flex text-[9px] flex-1 min-w-0 items-center">
-                  <span className="w-[65px] shrink-0 text-gray-500 font-medium">Date of Joining</span>
-                  <span className="shrink-0 mr-1 text-gray-400">:</span>
+                  <span className="w-[65px] shrink-0 text-gray-700 font-medium">Date of Joining</span>
+                  <span className="shrink-0 mr-1 text-gray-500">:</span>
                   <span className="font-bold text-gray-800 truncate flex-1">
                     {dateOfJoining ? new Date(dateOfJoining).toLocaleDateString('en-GB') : '17-07-2025'}
                   </span>
@@ -138,8 +138,8 @@ export const IdCardPreview: React.FC<Props> = ({ data, forwardedRef }) => {
                     <Droplet className="w-2 h-2 text-white" />
                   </div>
                   <div className="flex text-[9px] flex-1 min-w-0 items-center">
-                    <span className="w-[65px] shrink-0 text-gray-500 font-medium">Blood Group</span>
-                    <span className="shrink-0 mr-1 text-gray-400">:</span>
+                    <span className="w-[65px] shrink-0 text-gray-700 font-medium">Blood Group</span>
+                    <span className="shrink-0 mr-1 text-gray-500">:</span>
                     <span className="font-bold text-gray-800 truncate flex-1">{bloodGroup}</span>
                   </div>
                 </div>
@@ -150,8 +150,8 @@ export const IdCardPreview: React.FC<Props> = ({ data, forwardedRef }) => {
                   <Phone className="w-2 h-2 text-white" />
                 </div>
                 <div className="flex text-[9px] flex-1 min-w-0 items-center">
-                  <span className="w-[65px] shrink-0 text-gray-500 font-medium">Contact No.</span>
-                  <span className="shrink-0 mr-1 text-gray-400">:</span>
+                  <span className="w-[65px] shrink-0 text-gray-700 font-medium">Contact No.</span>
+                  <span className="shrink-0 mr-1 text-gray-500">:</span>
                   <span className="font-bold text-gray-800 truncate flex-1">{phone}</span>
                 </div>
               </div>
@@ -161,7 +161,7 @@ export const IdCardPreview: React.FC<Props> = ({ data, forwardedRef }) => {
                   <Mail className="w-2 h-2 text-white" />
                 </div>
                 <div className="flex flex-col text-[9px] flex-1 min-w-0 leading-tight">
-                  <span className="text-gray-500 font-medium">Email ID</span>
+                  <span className="text-gray-700 font-medium">Email ID</span>
                   <span className="font-bold text-gray-800 break-all text-[8.5px]">{email}</span>
                 </div>
               </div>
@@ -179,8 +179,8 @@ export const IdCardPreview: React.FC<Props> = ({ data, forwardedRef }) => {
               crossOrigin="anonymous"
             />
           </div>
-          <div className="w-full h-[1px] bg-gray-400"></div>
-          <span className="text-[7px] text-gray-500 mt-0.5 tracking-tight font-medium">Authorized Signatory</span>
+          <div className="w-full h-[1px] bg-gray-500"></div>
+          <span className="text-[7px] text-gray-700 mt-0.5 tracking-tight font-semibold">Authorized Signatory</span>
         </div>
 
         {/* QR Code (Anchored bottom right, higher up to avoid overlapping curves) */}
@@ -195,10 +195,10 @@ export const IdCardPreview: React.FC<Props> = ({ data, forwardedRef }) => {
           {/* Green accent wave behind */}
           <div className="absolute bottom-[8px] left-0 w-full h-[36px] bg-green-600 rounded-t-[50%] scale-x-[1.2] origin-bottom z-0"></div>
           {/* Dark blue footer block */}
-          <div className="absolute bottom-0 left-0 w-full h-[36px] bg-[#0A2342] rounded-t-[50%] scale-x-[1.1] origin-bottom z-10 flex items-center px-4">
-            <div className="flex items-center gap-1.5 pt-1.5 z-20 w-full">
+          <div className="absolute bottom-0 left-0 w-full h-[36px] bg-[#0A2342] rounded-t-[50%] scale-x-[1.1] origin-bottom z-10 flex items-center justify-center px-4">
+            <div className="flex items-center justify-center gap-1.5 pb-1.5 z-20 w-full">
               <MapPin className="w-3.5 h-3.5 text-white shrink-0" />
-              <p className="text-white text-[8px] leading-tight font-light truncate w-[90%]">
+              <p className="text-white text-[8px] leading-tight font-light truncate max-w-[85%] text-center">
                 C-111A, Punit Industrial Estate, Turbhe, Navi Mumbai - 400703
               </p>
             </div>
@@ -226,7 +226,7 @@ export const IdCardPreview: React.FC<Props> = ({ data, forwardedRef }) => {
         <div className="relative z-20 pt-[48px] px-4 flex justify-center shrink-0">
           <div className="h-[36px] bg-white/95 rounded-lg px-3 py-1 flex items-center justify-center shadow-sm border border-gray-100">
             <img
-              src="/placeholder-logo.jpeg"
+              src="/placeholder-logo.png"
               alt="Medoxnity Diagnostic"
               className="h-full object-contain"
               crossOrigin="anonymous"
@@ -248,7 +248,7 @@ export const IdCardPreview: React.FC<Props> = ({ data, forwardedRef }) => {
               <div className="w-4 h-4 rounded-full bg-green-600 flex items-center justify-center shrink-0 mt-0.5">
                 <MapPin className="w-2.5 h-2.5 text-white" />
               </div>
-              <p className="text-[9.5px] text-gray-700 font-semibold leading-tight">
+              <p className="text-[9.5px] text-gray-900 font-bold leading-tight">
                 Medoxnity Diagnostic Pvt. Ltd.<br />
                 C-111A, Punit Industrial Estate,<br />
                 Turbhe, Navi Mumbai - 400703
@@ -259,21 +259,21 @@ export const IdCardPreview: React.FC<Props> = ({ data, forwardedRef }) => {
               <div className="w-4 h-4 rounded-full bg-green-600 flex items-center justify-center shrink-0">
                 <Globe className="w-2.5 h-2.5 text-white" />
               </div>
-              <p className="text-[9.5px] text-gray-700 font-semibold">www.medoxnity.com</p>
+              <p className="text-[9.5px] text-gray-900 font-bold">www.medoxnity.com</p>
             </div>
 
             <div className="flex items-center gap-2.5">
               <div className="w-4 h-4 rounded-full bg-green-600 flex items-center justify-center shrink-0">
                 <Mail className="w-2.5 h-2.5 text-white" />
               </div>
-              <p className="text-[9.5px] text-gray-700 font-semibold">info@medoxnity.com</p>
+              <p className="text-[9.5px] text-gray-900 font-bold">info@medoxnity.com</p>
             </div>
 
             <div className="flex items-center gap-2.5">
               <div className="w-4 h-4 rounded-full bg-green-600 flex items-center justify-center shrink-0">
                 <Phone className="w-2.5 h-2.5 text-white" />
               </div>
-              <p className="text-[9.5px] text-gray-700 font-semibold">79771 21917</p>
+              <p className="text-[9.5px] text-gray-900 font-bold">79771 21917</p>
             </div>
           </div>
 
@@ -283,7 +283,7 @@ export const IdCardPreview: React.FC<Props> = ({ data, forwardedRef }) => {
             <div className="bg-[#0A2342] text-white text-[9px] tracking-wider font-bold px-3 py-0.5 rounded-md inline-block mb-2">
               INSTRUCTIONS
             </div>
-            <ul className="text-[8.5px] text-gray-700 space-y-1 list-disc pl-4 font-semibold leading-tight">
+            <ul className="text-[8.5px] text-gray-900 space-y-1 list-disc pl-4 font-bold leading-tight">
               <li>This ID card is the property of Medoxnity Diagnostic Pvt. Ltd.</li>
               <li>This card is non-transferable.</li>
               <li>Please carry this card while on duty.</li>
